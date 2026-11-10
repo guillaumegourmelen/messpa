@@ -189,25 +189,30 @@ footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--steel);f
 
   <section class="sub" id="video">
   <h3>Video</h3>
-  <!-- TODO(video-condition): confirm which interface this clip shows (MESSPa or keyboard) and adjust the captions if needed -->
   <div class="side">
     <figure class="fig">
       <div class="video"><video controls muted playsinline preload="none" poster="static/videos/detached-operation.jpg" width="720" height="1280" aria-label="Detached operation video"><source src="static/videos/detached-operation.mp4" type="video/mp4">Your browser cannot play this video. <a href="static/videos/detached-operation.mp4">Download it (MP4)</a>.</video></div>
-      <figcaption>Detached operation: the arm stands on the table away from the participant, who aims its laser pointer at the circles on the task sheet (face blurred, no sound).</figcaption>
+      <figcaption>Detached operation with MESSPa: the arm stands on the table away from the participant, who aims its laser pointer at the circles on the task sheet (face blurred, no sound).</figcaption>
     </figure>
     <div class="prose">
       <h4>What the video shows</h4>
-      <p>The robotic arm has been detached from the participant's shoulder harness and placed on the table. A laser pointer is mounted at the end of the arm, and a printed task sheet with nine circles lies in front of it.</p>
-      <p>On the task screen, a green circle tells the participant which printed circle to aim at. The participant steers the arm until the laser dot lands on that circle and presses “Enter” on a small keypad. The target then resets to the centre and the cycle repeats.</p>
+      <p>The robotic arm has been detached from the participant's shoulder harness and placed on the table. The participant wears MESSPa and controls the arm with shoulder movements. A laser pointer is mounted at the end of the arm, and a printed task sheet with nine circles lies in front of it.</p>
+      <p>On the task screen, a green circle tells the participant which printed circle to aim at. The participant moves the arm with their shoulder until the laser dot lands on that circle, then presses “Enter” on a small keypad. The target then resets to the centre and the cycle repeats.</p>
     </div>
   </div>
   <figure class="fig">
     <ol class="strip">
       <li><img src="static/figures/task-1.jpg" alt="The detached arm above the task sheet, its red laser dot on the centre circle; the seated participant holds a small keypad" width="480" height="600" loading="lazy" decoding="async"><b>1. Start at the centre</b><span>Each cycle starts with the laser dot on the centre circle.</span></li>
-      <li><img src="static/figures/task-2.jpg" alt="The arm has turned and the laser dot is now on the left side of the task sheet, between circles" width="480" height="600" loading="lazy" decoding="async"><b>2. Move toward the target</b><span>The participant steers the arm, and the dot moves across the sheet.</span></li>
+      <li><img src="static/figures/task-2.jpg" alt="The arm has turned and the laser dot is now on the left side of the task sheet, between circles" width="480" height="600" loading="lazy" decoding="async"><b>2. Move toward the target</b><span>The participant moves their shoulder, and the arm and the dot follow.</span></li>
       <li><img src="static/figures/task-3.jpg" alt="The laser dot sits on an outer circle at the upper left of the task sheet" width="480" height="600" loading="lazy" decoding="async"><b>3. Reach a circle</b><span>The dot reaches an outer circle. An external camera records where it lands.</span></li>
     </ol>
     <figcaption>Frames from the detached-operation video (cropped below the participant's face).</figcaption>
+  </figure>
+
+  <h4 class="spaced">What the participant sees</h4>
+  <figure class="fig mid">
+    <div class="video"><video controls muted playsinline preload="none" poster="static/videos/task-screen.jpg" width="1280" height="720" aria-label="Task screen recording"><source src="static/videos/task-screen.mp4" type="video/mp4">Your browser cannot play this video. <a href="static/videos/task-screen.mp4">Download it (MP4)</a>.</video></div>
+    <figcaption>The Unity task screen during a dual-task session (first minute, no sound). The timer counts down from five minutes. The green circle marks which circle of the printed task sheet to aim at; after each target it returns to the centre. The large circle at the top right is the colour-calling sub-task: it changes between red, blue and green, and the participant says the current colour aloud.</figcaption>
   </figure>
   </section>
 
@@ -237,20 +242,19 @@ footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--steel);f
   </figure>
 
   <h4 class="spaced">Attached and detached in the experiment</h4>
-  <!-- TODO(video-condition): confirm which interface (MESSPa or keyboard) these clips show -->
   <figure class="fig">
     <ol class="strip">
       <li><img src="static/figures/worn-1.jpg" alt="Front view of a participant (face pixelated) wearing the harness, with the white robot arm standing on a mount on their right shoulder and the task sheet on a stand beside it" width="480" height="600" loading="lazy" decoding="async"><b>On the shoulder, front view</b><span>The arm stands on a mount on the shoulder of the harness, with the task sheet on a stand beside it.</span></li>
       <li><img src="static/figures/worn-2.jpg" alt="View from above and behind: the arm on the participant's shoulder (face pixelated) points its laser at the task sheet, with a webcam in front of the sheet" width="480" height="600" loading="lazy" decoding="async"><b>On the shoulder, from above</b><span>The arm aims its laser at the task sheet, and the external camera in front of the sheet tracks the dot.</span></li>
       <li><img src="static/figures/worn-3.jpg" alt="The arm standing on the desk in front of a seated participant (face blurred) who still wears the harness, its shoulder mount now empty" width="480" height="600" loading="lazy" decoding="async"><b>Detached</b><span>The arm is on the desk. The participant still wears the harness, but its shoulder mount is empty.</span></li>
     </ol>
-    <figcaption>Frames from the experiment videos (faces pixelated or blurred). The full setup is shown in the <a href="#setup">experimental design</a>.</figcaption>
+    <figcaption>Frames from the MESSPa experiment videos (faces pixelated or blurred). The full setup is shown in the <a href="#setup">experimental design</a>.</figcaption>
   </figure>
   </section>
 
   <section class="sub" id="balloons">
   <h3>The balloons</h3>
-  <!-- TODO(balloon-fabrication): the paper does not say how the balloons were made. Add the film material, how the edges were sealed and how the air line connects, then extend the paragraph below. -->
+  <!-- TODO(balloon-size): confirm whether 25 x 25 mm (paper) is the whole pouch or the inflating area; the pouches look larger in the video -->
   <div class="side">
     <figure class="fig">
       <div class="video"><video controls muted playsinline preload="none" poster="static/videos/balloon-feedback.jpg" width="540" height="960" aria-label="Balloon haptic feedback video"><source src="static/videos/balloon-feedback.mp4" type="video/mp4">Your browser cannot play this video. <a href="static/videos/balloon-feedback.mp4">Download it (MP4)</a>.</video></div>
@@ -258,7 +262,7 @@ footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--steel);f
     </figure>
     <div class="prose">
       <h4>How they are built</h4>
-      <p>Each balloon is a flat pouch of clear, textured plastic film, sealed along all four edges, with a small square patch at its centre that has a hole in the middle. The four pouches sit on the inside of the neoprene shoulder pad, against the shoulder, and each has its own air line and solenoid valve.</p>
+      <p>Each balloon is cut from HDPE (high-density polyethylene) plastic film and heat-sealed along all four edges into a square pouch. A 3D-printed port, the small square at the centre of each pouch, fits the connector of the air line coming from that balloon's solenoid valve. The four pouches sit on the inside of the neoprene shoulder pad, against the shoulder.</p>
       <h4>How they work</h4>
       <p>A compressor supplies air, which a proportional valve regulates to 0.05&nbsp;MPa. When the arm's end-effector enters a quadrant of its workspace, Unity tells an Arduino MEGA to open that quadrant's valve, and the matching balloon inflates against the shoulder. At 0.05&nbsp;MPa a balloon pushes with up to 13&nbsp;N: clearly perceptible, but below the level at which participants reported any discomfort.</p>
       <h4>Why balloons</h4>
@@ -267,7 +271,7 @@ footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--steel);f
   </div>
   <figure class="fig">
     <ol class="strip">
-      <li><img src="static/figures/balloon-1.jpg" alt="Two flat, clear plastic pouches on black fabric, each with a small square patch and a hole at its centre" width="600" height="480" loading="lazy" decoding="async"><b>1. At rest</b><span>Both balloons are flat.</span></li>
+      <li><img src="static/figures/balloon-1.jpg" alt="Two flat, clear plastic pouches on black fabric, each with a small square 3D-printed port at its centre" width="600" height="480" loading="lazy" decoding="async"><b>1. At rest</b><span>Both balloons are flat.</span></li>
       <li><img src="static/figures/balloon-2.jpg" alt="The right pouch is puffed up with air, its edges pulled inward, while the left pouch stays flat" width="600" height="480" loading="lazy" decoding="async"><b>2. One balloon inflates</b><span>The right balloon fills with air and its edges pull inward.</span></li>
       <li><img src="static/figures/balloon-3.jpg" alt="The left pouch is now inflated into a pinched star shape" width="600" height="480" loading="lazy" decoding="async"><b>3. The next balloon inflates</b><span>The left balloon fills next, as it would when the arm moves into another quadrant.</span></li>
     </ol>
