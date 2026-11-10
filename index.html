@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MESSPa: A Multi-modal Embodiment Stimulation Shoulder Pad for Preserving the Sense of Agency in a Detachable Robotic Arm</title>
+<meta name="description" content="A wearable shoulder pad that combines one-to-one motion transfer with positional balloon haptics to preserve the sense of agency when a robotic arm is detached from the body.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MESSPa: Multi-modal Embodiment Stimulation Shoulder Pad">
+<meta property="og:description" content="Motion transfer plus shoulder balloon haptics for a detachable robotic arm. IEEE-RAS Humanoids 2026.">
+<!-- TODO(final-url): once the repository name is known, add
+<link rel="canonical" href="https://guillaumegourmelen.github.io/<repo>/">
+<meta property="og:url" content="https://guillaumegourmelen.github.io/<repo>/">
+<meta property="og:image" content="https://guillaumegourmelen.github.io/<repo>/static/figures/teaser.jpg">
+<meta property="og:image:width" content="1005">
+<meta property="og:image:height" content="1082">
+<meta name="twitter:image" content="https://guillaumegourmelen.github.io/<repo>/static/figures/teaser.jpg">
+-->
+<meta property="og:image:alt" content="Operator wearing the MESSPa shoulder pad with a VIVE tracker, next to the detached robotic arm">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MESSPa: Multi-modal Embodiment Stimulation Shoulder Pad">
+<meta name="twitter:description" content="Motion transfer plus shoulder balloon haptics for a detachable robotic arm. IEEE-RAS Humanoids 2026.">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2710%27 cy=%2710%27 r=%275%27 fill=%27%232447D6%27/%3E%3Ccircle cx=%2722%27 cy=%2710%27 r=%275%27 fill=%27none%27 stroke=%27%232447D6%27 stroke-width=%272.5%27/%3E%3Ccircle cx=%2710%27 cy=%2722%27 r=%275%27 fill=%27none%27 stroke=%27%232447D6%27 stroke-width=%272.5%27/%3E%3Ccircle cx=%2722%27 cy=%2722%27 r=%275%27 fill=%27none%27 stroke=%27%232447D6%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F2F4F5;--surface:#FFFFFF;--ink:#1D2733;--steel:#5B6B7A;--line:#D3D9DE;--cobalt:#2447D6;--cobalt-ink:#FFFFFF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#141B23;--surface:#1C252F;--ink:#E7ECF0;--steel:#9AA8B5;--line:#2E3A46;--cobalt:#7C97FF;--cobalt-ink:#0F1520}}
+:root[data-theme="dark"]{--paper:#141B23;--surface:#1C252F;--ink:#E7ECF0;--steel:#9AA8B5;--line:#2E3A46;--cobalt:#7C97FF;--cobalt-ink:#0F1520}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.65 "Public Sans",system-ui,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.5rem}
+.prose{max-width:68ch}
+a{color:var(--cobalt)}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:600;line-height:1.15;margin:0}
+header{padding:4.5rem 0 2.25rem}
+header .wrap{position:relative}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+.theme{position:absolute;top:-3rem;right:1.5rem;display:flex;align-items:center;gap:.45rem;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:.4rem .85rem;font:600 .85rem "Public Sans",sans-serif;cursor:pointer}
+.theme svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.theme .sun{display:none}
+:root[data-theme="dark"] .theme .sun{display:block}:root[data-theme="dark"] .theme .moon{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .theme .sun{display:block}:root:not([data-theme="light"]) .theme .moon{display:none}}
+h1{font-size:clamp(2rem,4.6vw,3.2rem);max-width:26ch;letter-spacing:-.01em}
+.authors{margin:1.5rem 0 .25rem;font-size:1.1rem}
+.authors a{color:inherit;text-decoration-color:var(--line);text-underline-offset:4px}
+.affil,.venue{color:var(--steel);margin:0}
+.venue{margin-top:.25rem}
+.links{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.75rem 0 0;padding:0;list-style:none}
+.btn{display:inline-block;padding:.55rem 1.1rem;border:1.5px solid var(--cobalt);border-radius:6px;text-decoration:none;font-weight:600;font-size:.95rem;color:var(--cobalt)}
+.btn.primary{background:var(--cobalt);color:var(--cobalt-ink)}
+.btn.soon{border-color:var(--line);color:var(--steel);border-style:dashed;cursor:default}
+.btn:not(.soon):hover{filter:brightness(1.1)}
+figure.fig figcaption{color:var(--steel);font-size:.92rem;margin-top:.75rem}
+[id]{scroll-margin-top:4.5rem}
+.toc{position:sticky;top:0;z-index:10;background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.toc .wrap{display:flex;gap:.25rem;overflow-x:auto;white-space:nowrap}
+.toc a{display:block;padding:.85rem .8rem;color:var(--steel);text-decoration:none;font-weight:600;font-size:.95rem;border-bottom:3px solid transparent}
+.toc a:first-child{padding-left:0}
+.toc a b{color:var(--cobalt);font-weight:600;margin-right:.35rem}
+.toc a[aria-current="true"]{color:var(--ink);border-bottom-color:var(--cobalt)}
+section.part{padding:3.5rem 0 3rem}
+section.part+section.part,section.cite{border-top:1px solid var(--line)}
+.part-head{margin-bottom:.5rem}
+.part-num{display:block;color:var(--cobalt);font-weight:600;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
+.part-head h2{font-size:clamp(2.1rem,4.4vw,2.8rem)}
+.part-lead{color:var(--steel);max-width:62ch;margin:.75rem 0 0;font-size:1.1rem}
+section.sub{padding-top:2.75rem}
+section.sub>h3{font-size:1.55rem;margin-bottom:.9rem}
+section.feature{margin-top:2.75rem;padding:2rem;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--cobalt);border-radius:10px}
+section.feature>h3{font-size:clamp(1.9rem,3.6vw,2.4rem)}
+h4{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:1.25rem;line-height:1.2;margin:0 0 .4rem}
+section.cite{padding:3rem 0}
+section.cite h2{font-size:1.9rem;margin-bottom:1.1rem}
+.states{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:.5rem 1.25rem}
+.states dt{font:600 .9rem ui-monospace,Menlo,Consolas,monospace;padding-top:.15rem}
+.states dd{margin:0}
+@media (max-width:480px){.states{grid-template-columns:1fr;gap:.15rem}.states dd{margin-bottom:.6rem}}
+p{margin:0 0 1rem}
+.video{background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:1.25rem}
+figure.fig{margin:1.25rem 0 0}
+video{display:block;width:100%;height:auto;background:#000}
+.vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,340px));gap:1.5rem;margin-top:1.25rem}
+.vids figure.fig{margin:0}
+.tldr{font-size:1.15rem;max-width:62ch;margin:1.5rem 0 0}
+.limits{margin:0;padding-left:1.2rem}
+.limits li{margin-bottom:.5rem}
+figure.hero{margin-top:2.5rem;max-width:560px}
+figure.mid{max-width:760px}
+.after{margin-top:1.25rem}
+h4.spaced{margin-top:1.75rem}
+.ph{aspect-ratio:4/3;background:var(--surface);border:1.5px dashed var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--steel);font-size:.9rem;text-align:center;padding:1rem;overflow:hidden}
+.ph.auto{aspect-ratio:auto;padding:0;background:#fff;border-style:solid}
+.ph.auto img{height:auto}
+.ph img{width:100%;height:100%;object-fit:contain;display:block}
+.stats{display:flex;flex-wrap:wrap;gap:2.5rem;margin:1.25rem 0 0}
+.stat{max-width:15rem}
+.stat b{display:block;font:600 2.4rem/1.1 Newsreader,Georgia,serif;color:var(--cobalt)}
+.stat span{color:var(--steel);font-size:.95rem}
+.tablewrap{overflow-x:auto;margin-top:1.25rem}
+table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line)}
+th,td{padding:.65rem .9rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;background:var(--paper)}
+td.n{font-variant-numeric:tabular-nums}
+tbody th{background:var(--surface);font-weight:600}
+caption{caption-side:top;text-align:left;color:var(--steel);font-size:.92rem;padding:0 0 .5rem}
+.eq{margin:1rem 0 1.25rem;padding:1rem 1.1rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow-x:auto;font:1.05rem/1.6 Newsreader,Georgia,serif;white-space:nowrap}
+.bib{position:relative}
+pre{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.1rem;overflow-x:auto;font:.88rem/1.55 ui-monospace,Menlo,Consolas,monospace}
+.copy{position:absolute;top:.6rem;right:.6rem;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:.3rem .7rem;font:600 .85rem "Public Sans",sans-serif;cursor:pointer}
+footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--steel);font-size:.92rem}
+@media (max-width:480px){th,td{padding:.55rem .6rem}.toc a{padding:.85rem .5rem;font-size:.9rem}section.feature{padding:1.25rem}.toc a b{display:none}.vids{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap">
+  <button class="theme" type="button" id="theme" aria-label="Switch colour theme"><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span id="theme-label">Dark</span></button>
+  <h1>MESSPa: A Multi-modal Embodiment Stimulation Shoulder Pad for Preserving the Sense of Agency in a Detachable Robotic Arm</h1>
+  <p class="authors">
+    <!-- TODO(author-links): homepages for Vitvasin Vimolmongkolporn and Yukiko Iwasaki, if they have one -->
+    <span>Vitvasin Vimolmongkolporn</span><sup>*</sup>,
+    <a href="https://guillaumegourmelen.github.io">Guillaume Gourmelen</a><sup>*</sup>,
+    <span>Yukiko Iwasaki</span>,
+    <a href="https://www.jubi-party.jp/">Hiroyasu Iwata</a>
+  </p>
+  <p class="affil">Department of Modern Mechanical Engineering, Waseda University, Tokyo, Japan · <sup>*</sup>Corresponding authors</p>
+  <p class="venue">2026 IEEE-RAS International Conference on Humanoid Robots (Humanoids 2026)</p>
+
+  <ul class="links">
+    <li><a class="btn primary" href="https://arxiv.org/abs/2611.00509">Paper (arXiv)</a></li>
+    <li><a class="btn" href="https://arxiv.org/pdf/2611.00509">PDF</a></li>
+    <li><a class="btn" href="#video">Video</a></li>
+    <!-- TODO(ieee-link): turn this into <a class="btn" href="https://doi.org/..."> once the paper is on IEEE Xplore -->
+    <li><span class="btn soon" title="Coming soon">IEEE Xplore (coming soon)</span></li>
+  </ul>
+
+  <p class="tldr"><strong>TL;DR</strong> A shoulder pad that maps the operator's shoulder motion one-to-one onto a robotic arm and signals where the arm is with four balloons on the shoulder. With the arm detached, participants using MESSPa were significantly faster than with keyboard control and reported a significantly higher sense of agency; the sense of ownership did not change.</p>
+</div>
+</header>
+
+<nav class="toc" aria-label="Page sections">
+<div class="wrap">
+  <a href="#interface"><b>1</b>The interface</a>
+  <a href="#results"><b>2</b>Results</a>
+  <a href="#system"><b>3</b>System &amp; study</a>
+  <a href="#citation">Cite</a>
+</div>
+</nav>
+
+<main>
+
+<!-- ============ PART 1: THE INTERFACE ============ -->
+<section class="part" id="interface" aria-labelledby="interface-h">
+<div class="wrap">
+  <div class="part-head">
+    <span class="part-num">Part 1</span>
+    <h2 id="interface-h">The interface</h2>
+    <p class="part-lead">A wearable shoulder pad that lets the operator drive a detachable robotic arm with their own body and feel where it is.</p>
+  </div>
+
+  <figure class="fig hero"><div class="ph auto"><img src="static/figures/teaser.jpg" srcset="static/figures/teaser-800.jpg 800w, static/figures/teaser.jpg 1005w" sizes="(max-width:608px) calc(100vw - 3rem), 560px" alt="A seated operator wears a black neoprene shoulder pad with a VIVE tracker on top and two air tubes running down the chest; a small white robot arm stands on the table in front of them" width="1005" height="1082" fetchpriority="high" decoding="async"></div><figcaption>Illustration of MESSPa in use with the arm detached (experimental placement: <a href="#setup">setup figure</a>, a). The HTC VIVE tracker on top of the shoulder pad maps the operator's shoulder motion to the arm one-to-one, while four shoulder-mounted balloons deliver positional haptic feedback. The remote arm and the task screen are visible through the operator's view.</figcaption></figure>
+
+  <section class="sub" id="abstract">
+  <h3>Abstract</h3>
+  <div class="prose">
+    <p>Wearable robots such as supernumerary robotic limbs (SRLs) can augment human capability, but their effectiveness depends strongly on the operator's sense of embodiment, comprising the sense of agency (SoA) and the sense of ownership (SoO). When an SRL is detached from the body so that the operator can act in two places at once, both the sense of agency and task performance tend to degrade.</p>
+    <p>This paper presents the Multi-modal Embodiment Stimulation Shoulder Pad (MESSPa), a wearable interface that combines one-to-one motion transfer with spatially distributed pneumatic (balloon) haptic feedback on the shoulder, with the goal of preserving the sense of agency across attached and detached states. We describe the system design, the control mapping, and a controlled experiment using a 2&nbsp;×&nbsp;2 mixed design that crosses the control interface between groups (MESSPa, <i>N</i>&nbsp;=&nbsp;13, vs. keyboard control, <i>N</i>&nbsp;=&nbsp;12 from our previous study) and attachment (on-shoulder/detached) within participants, under single- and dual-task loads.</p>
+    <p>Compared with keyboard control in the detached condition, MESSPa significantly reduced task completion time and significantly improved the sense of agency in the detached state, while narrowing the performance gap between the attached and detached conditions. The sense of ownership did not change significantly. These results indicate that combining motion transfer with positional haptic feedback is an effective way to recover agency when a robotic limb is operated remotely.</p>
+  </div>
+  </section>
+
+  <section class="sub" id="video">
+  <h3>Video</h3>
+  <!-- TODO(video-condition): confirm which interface this clip shows (MESSPa or keyboard) and adjust the caption if needed -->
+  <div class="vids">
+    <figure class="fig">
+      <div class="video"><video controls muted playsinline preload="none" poster="static/videos/detached-operation.jpg" width="720" height="1280" aria-label="Detached operation video"><source src="static/videos/detached-operation.mp4" type="video/mp4">Your browser cannot play this video. <a href="static/videos/detached-operation.mp4">Download it (MP4)</a>.</video></div>
+      <figcaption>Detached operation: the arm stands on the table away from the participant, who aims its laser pointer at the circles on the task sheet (face blurred, no sound).</figcaption>
+    </figure>
+    <figure class="fig">
+      <div class="video"><video controls muted playsinline preload="none" poster="static/videos/balloon-feedback.jpg" width="540" height="960" aria-label="Balloon haptic feedback video"><source src="static/videos/balloon-feedback.mp4" type="video/mp4">Your browser cannot play this video. <a href="static/videos/balloon-feedback.mp4">Download it (MP4)</a>.</video></div>
+      <figcaption>The four balloons laid out on the shoulder pad, inflating one at a time.</figcaption>
+    </figure>
+  </div>
+  </section>
+
+  <section class="sub" id="how">
+  <h3>How it works</h3>
+  <div class="steps">
+    <div>
+      <h4>Motion transfer</h4>
+      <p>A single HTC VIVE tracker on top of the shoulder pad captures the operator's shoulder and upper-body motion, which is mapped one-to-one onto the robotic arm. No tracker or controller is worn on or held in the hand, and the same body-anchored mapping is used whether the arm is attached or detached.</p>
+    </div>
+    <div>
+      <h4>Positional haptic feedback</h4>
+      <p>Four balloons on the shoulder, one per quadrant of the arm's planar workspace, tell the operator where the arm is. The system determines which quadrant the end-effector occupies and inflates the matching balloon.</p>
+    </div>
+  </div>
+  <figure class="fig mid"><div class="ph auto"><img src="static/figures/shoulder-pad.jpg" alt="The black neoprene shoulder pad on a mannequin, with a VIVE tracker boxed in red on top of the shoulder labelled motion transfer, and an inset of two clear square balloons 80 mm apart labelled haptic feedback" width="1600" height="1256" loading="lazy" decoding="async"></div><figcaption>The MESSPa shoulder pad. Motion transfer is provided by an HTC VIVE tracker; haptic feedback is provided by four balloons (25&nbsp;×&nbsp;25&nbsp;mm each) arranged on the shoulder with 80&nbsp;mm spacing, corresponding to the four quadrants of the arm's workspace (<a href="#haptics">Part&nbsp;3</a>).</figcaption></figure>
+  </section>
+
+  <section class="sub" id="specs">
+  <h3>Specifications</h3>
+  <section class="tablewrap" tabindex="0" aria-label="Specifications table">
+    <table>
+      <caption>Key parameters of the MESSPa prototype and the experimental arm.</caption>
+      <thead><tr><th scope="col">Item</th><th scope="col">Value</th></tr></thead>
+      <tbody>
+        <tr><td>Motion tracking</td><td>One HTC VIVE tracker on top of the shoulder pad</td></tr>
+        <tr><td>Mapping used in the experiment</td><td>Relative, restricted to the two horizontal Cartesian axes (2-DoF planar)</td></tr>
+        <tr><td>Number of balloons</td><td class="n">4 (one per workspace quadrant)</td></tr>
+        <tr><td>Balloon size</td><td class="n">25&nbsp;×&nbsp;25&nbsp;mm</td></tr>
+        <tr><td>Balloon centre-to-centre spacing</td><td class="n">80&nbsp;mm</td></tr>
+        <tr><td>Supply pressure (proportional valve)</td><td class="n">0.05&nbsp;MPa</td></tr>
+        <tr><td>Maximum balloon force at 0.05&nbsp;MPa</td><td class="n">13&nbsp;N</td></tr>
+        <tr><td>Robotic arm</td><td>MyCobot&nbsp;280, controlled from Unity through <code>pymycobot</code></td></tr>
+        <tr><td>Arm mass / harness mass</td><td class="n">850&nbsp;g / 3.5&nbsp;kg</td></tr>
+      </tbody>
+    </table>
+  </section>
+  </section>
+</div>
+</section>
+
+<!-- ============ PART 2: RESULTS ============ -->
+<section class="part" id="results" aria-labelledby="results-h">
+<div class="wrap">
+  <div class="part-head">
+    <span class="part-num">Part 2</span>
+    <h2 id="results-h">Results</h2>
+    <p class="part-lead">MESSPa (<i>N</i>&nbsp;=&nbsp;13) against keyboard control (<i>N</i>&nbsp;=&nbsp;12, from our previous study), on-shoulder and detached, under a single and a dual task.</p>
+  </div>
+
+  <section class="sub" id="summary">
+  <h3>Key findings</h3>
+  <div class="stats">
+    <div class="stat"><b>0.6&nbsp;s vs. 2.1&nbsp;s</b><span>mean increase in time per target when the arm is detached, with MESSPa vs. keyboard (single task)</span></div>
+    <div class="stat"><b>0.3&nbsp;s vs. 1.8&nbsp;s</b><span>the same detachment cost in the dual task</span></div>
+    <div class="stat"><b><i>p</i>&nbsp;=&nbsp;0.017</b><span>sense of agency higher with MESSPa in the detached condition</span></div>
+  </div>
+  <div class="prose after">
+    <p>With the arm detached, MESSPa was significantly faster than keyboard control in both the single and the dual task, and it narrowed, but did not fully close, the gap to on-shoulder operation. The sense of agency improved significantly; the sense of ownership did not change. In the single task, accuracy was lower with MESSPa in the detached condition; in the dual task the difference was not significant.</p>
+  </div>
+  </section>
+
+  <section class="sub" id="time">
+  <h3>Task completion time</h3>
+  <figure class="fig mid"><div class="ph auto"><img src="static/figures/completion-time.png" alt="Box plots of time to finish each target, in seconds, for on-shoulder (blue) and detached (red) operation, without and with MESSPa, in two panels: single task and dual task. Both MESSPa boxes sit around 2 to 4 seconds, below the keyboard boxes; brackets are marked with asterisks except on-shoulder versus detached with MESSPa in the dual task, marked n.s." width="1600" height="1115" loading="lazy" decoding="async"></div><figcaption>Task completion time across the four wearing conditions, for the single and dual task, with the baseline from the previous experiment. Brackets mark the three planned comparisons: ** <i>p</i>&nbsp;&lt;&nbsp;0.01, * <i>p</i>&nbsp;&lt;&nbsp;0.05 (Bonferroni-adjusted), n.s. not significant.</figcaption></figure>
+  <section class="tablewrap" tabindex="0" aria-label="Completion-time comparisons table">
+    <table>
+      <caption>Planned comparisons for task completion time (Bonferroni-adjusted <i>p</i>-values).</caption>
+      <thead><tr><th scope="col">Comparison</th><th scope="col">Single task</th><th scope="col">Dual task</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">On-shoulder vs. detached, without MESSPa</th><td class="n">On-shoulder faster: <i>t</i>(11)&nbsp;=&nbsp;−6.888, <i>p</i>&nbsp;&lt;&nbsp;0.001</td><td class="n">On-shoulder faster: <i>Z</i>&nbsp;=&nbsp;−2.845, <i>p</i>&nbsp;=&nbsp;0.013</td></tr>
+        <tr><th scope="row">On-shoulder vs. detached, with MESSPa</th><td class="n">On-shoulder faster: <i>t</i>(12)&nbsp;=&nbsp;−4.012, <i>p</i>&nbsp;=&nbsp;0.005</td><td class="n">Not significant: <i>Z</i>&nbsp;=&nbsp;−2.205, <i>p</i>&nbsp;=&nbsp;0.082</td></tr>
+        <tr><th scope="row">Detached: with vs. without MESSPa</th><td class="n">MESSPa faster: Welch <i>t</i>(15.7)&nbsp;=&nbsp;8.365, <i>p</i>&nbsp;&lt;&nbsp;0.001</td><td class="n">MESSPa faster: <i>U</i>&nbsp;=&nbsp;0, <i>p</i>&nbsp;&lt;&nbsp;0.001</td></tr>
+      </tbody>
+    </table>
+  </section>
+  </section>
+
+  <section class="sub" id="accuracy">
+  <h3>Accuracy (error distance)</h3>
+  <figure class="fig mid"><div class="ph auto"><img src="static/figures/accuracy.png" alt="Box plots of error distance in millimetres for on-shoulder (blue) and detached (red) operation, without and with MESSPa, in single-task and dual-task panels. Most values lie between 2 and 7 millimetres; the detached with-MESSPa box is highest in the single task" width="1600" height="1115" loading="lazy" decoding="async"></div><figcaption>Error distance (mm) across the four wearing conditions, for the single and dual task. Brackets mark the three planned comparisons: ** <i>p</i>&nbsp;&lt;&nbsp;0.01, * <i>p</i>&nbsp;&lt;&nbsp;0.05 (Bonferroni-adjusted), n.s. not significant.</figcaption></figure>
+  <section class="tablewrap" tabindex="0" aria-label="Accuracy comparisons table">
+    <table>
+      <caption>Planned comparisons for error distance (Bonferroni-adjusted <i>p</i>-values).</caption>
+      <thead><tr><th scope="col">Comparison</th><th scope="col">Single task</th><th scope="col">Dual task</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">On-shoulder vs. detached, without MESSPa</th><td class="n">On-shoulder more accurate: <i>t</i>(11)&nbsp;=&nbsp;−4.439, <i>p</i>&nbsp;=&nbsp;0.003</td><td class="n">On-shoulder more accurate: <i>Z</i>&nbsp;=&nbsp;−2.630, <i>p</i>&nbsp;=&nbsp;0.026</td></tr>
+        <tr><th scope="row">On-shoulder vs. detached, with MESSPa</th><td class="n">On-shoulder more accurate: <i>t</i>(12)&nbsp;=&nbsp;−5.487, <i>p</i>&nbsp;&lt;&nbsp;0.001</td><td class="n">Not significant: <i>Z</i>&nbsp;=&nbsp;−2.271, <i>p</i>&nbsp;=&nbsp;0.069</td></tr>
+        <tr><th scope="row">Detached: with vs. without MESSPa</th><td class="n">Without MESSPa more accurate: Welch <i>t</i>(23.0)&nbsp;=&nbsp;−2.925, <i>p</i>&nbsp;=&nbsp;0.023</td><td class="n">Not significant: <i>U</i>&nbsp;=&nbsp;41, <i>p</i>&nbsp;=&nbsp;0.140</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="prose after">
+    <p>In the single task, accuracy was lower with MESSPa in the detached condition. This may reflect the balloon stimulus drawing attention away from fine positioning, or the difference between body-motion and keyboard control. Under the dual task, the difference between interfaces was no longer significant. The absolute error distances are small (a few millimetres), so the task may approach a precision ceiling.</p>
+  </div>
+  </section>
+
+  <section class="sub" id="embodiment">
+  <h3>Sense of agency and ownership</h3>
+  <div class="prose"><p>In the detached condition, agency improved significantly with MESSPa (<i>t</i>&nbsp;=&nbsp;2.582, <i>df</i>&nbsp;=&nbsp;21, <i>p</i>&nbsp;=&nbsp;0.017). Ownership showed no significant change (<i>t</i>&nbsp;=&nbsp;−0.345, <i>df</i>&nbsp;=&nbsp;21, <i>p</i>&nbsp;=&nbsp;0.734).</p></div>
+  <figure class="fig mid"><div class="ph auto"><img src="static/figures/embodiment.png" alt="Two box-plot panels comparing without MESSPa (orange) and with MESSPa (green): agency score, higher with MESSPa and marked with an asterisk, and ownership score, similar in both groups and marked n.s." width="1600" height="1004" loading="lazy" decoding="async"></div><figcaption>Sense of agency and sense of ownership in the detached condition, with and without MESSPa. Agency improves significantly with MESSPa (<i>p</i>&nbsp;=&nbsp;0.017); ownership is unchanged.</figcaption></figure>
+  <div class="prose after">
+    <p>Completion time improved alongside agency while ownership was unchanged, suggesting that securing agency is sufficient to recover most of the detachment penalty. This link is correlational, and ownership may still matter for longer or finer tasks. Building ownership likely requires repeated or prolonged exposure, which motivates the long-term study planned as future work.</p>
+  </div>
+  </section>
+
+  <section class="sub" id="limitations">
+  <h3>Limitations</h3>
+  <div class="prose">
+    <ul class="limits">
+      <li>The samples were modest (<i>N</i>&nbsp;=&nbsp;13 with MESSPa, <i>N</i>&nbsp;=&nbsp;12 with the keyboard) and skewed toward male participants, and the task may be too easy to reveal accuracy differences.</li>
+      <li>Attachment was confounded with viewing geometry: detaching the arm also changes the viewing distance and angle.</li>
+      <li>The interface was compared between groups, and the keyboard data come from our previous study, so differences between groups and sessions cannot be excluded.</li>
+      <li>Because MESSPa was compared with keyboard control, the separate contributions of motion transfer and of haptic feedback cannot be isolated.</li>
+      <li>A single feedback encoding (quadrant-based inflation) was evaluated; richer spatial or intensity encodings remain to be explored.</li>
+    </ul>
+  </div>
+  </section>
+</div>
+</section>
+
+<!-- ============ PART 3: SYSTEM & STUDY ============ -->
+<section class="part" id="system" aria-labelledby="system-h">
+<div class="wrap">
+  <div class="part-head">
+    <span class="part-num">Part 3</span>
+    <h2 id="system-h">System &amp; study</h2>
+    <p class="part-lead">The control mapping, the balloon haptics and pneumatics, and how the experiment was run.</p>
+  </div>
+
+  <section class="sub" id="mapping">
+  <h3>Motion transfer mapping</h3>
+  <div class="prose">
+    <p>MESSPa uses a <em>relative</em> pose mapping. At the start of a trial the tracker pose is recorded as the reference <i>r</i><sub>0</sub>, and the command sent to the arm is the displacement of the current tracker pose <i>r</i><sub>tracker</sub> from this reference:</p>
+  </div>
+  <div class="eq" tabindex="0" role="math" aria-label="r robot equals r tracker minus r zero, a seven-element vector of the X, Y and Z translations and the rotations about X, Y and Z relative to the reference, followed by zero">
+    <i>r</i><sub>robot</sub> = <i>r</i><sub>tracker</sub> − <i>r</i><sub>0</sub> = [&thinsp;<i>r</i><sub>X</sub> − <i>r</i><sub>X,0</sub>,&ensp;<i>r</i><sub>Y</sub> − <i>r</i><sub>Y,0</sub>,&ensp;<i>r</i><sub>Z</sub> − <i>r</i><sub>Z,0</sub>,&ensp;<i>r</i><sub>rotX</sub> − <i>r</i><sub>rotX,0</sub>,&ensp;<i>r</i><sub>rotY</sub> − <i>r</i><sub>rotY,0</sub>,&ensp;<i>r</i><sub>rotZ</sub> − <i>r</i><sub>rotZ,0</sub>,&ensp;0&thinsp;]<sup>⊤</sup>
+  </div>
+  <div class="prose">
+    <p>The first three entries are the translation and the next three the orientation of the tracker relative to the reference, both expressed in the tracker frame and applied to the arm's base frame. A relative mapping lets the operator re-centre comfortably and makes control independent of where the tracker happens to start. The seventh entry is fixed to zero: it corresponds to the gripper degree of freedom, which is not actuated in this task. For the experiment the mapping is restricted to the two horizontal Cartesian axes to match the planar pointing task. The command is streamed from Unity to a MyCobot&nbsp;280 through the <code>pymycobot</code> API.</p>
+  </div>
+  </section>
+
+  <section class="sub" id="haptics">
+  <h3>Balloon haptic feedback</h3>
+  <div class="prose">
+    <p>Vibrotactile cues can become uncomfortable or lose salience after extended actuation, so MESSPa uses pneumatic balloons, which give a softer and more sustained pressure cue.</p>
+    <ul class="limits">
+      <li><strong>Placement and number.</strong> The balloons sit on the shoulder, close to where the arm is mounted and controlled when attached. Four balloons are used, one per quadrant of the arm's planar workspace around its starting position.</li>
+      <li><strong>Size and spacing.</strong> Each balloon measures 25&nbsp;×&nbsp;25&nbsp;mm, with 80&nbsp;mm between centres. The two-point discrimination threshold on the upper body is reported at 31–44&nbsp;mm, so each balloon is felt as a distinct stimulus.</li>
+    </ul>
+  </div>
+  </section>
+
+  <section class="sub" id="pneumatics">
+  <h3>Pneumatic system</h3>
+  <div class="prose">
+    <p>A compressor generates the supply pressure, which a proportional valve regulates to 0.05&nbsp;MPa, the value established in our previous study. Solenoid valves (030E1-PSL DC24V), one per balloon, are driven by an Arduino MEGA that interfaces with Unity. Unity determines which of the four workspace quadrants the arm's end-effector currently occupies and activates the corresponding balloon.</p>
+  </div>
+  <figure class="fig mid"><div class="ph auto"><img src="static/figures/pneumatic.png" alt="Block diagram: air compressor to proportional valve at 0.05 MPa, feeding four solenoid valves, each connected to one of four balloons; a 4-channel relay drives the valves and is controlled by an Arduino MEGA connected to the Unity PC" width="1400" height="989" loading="lazy" decoding="async"></div><figcaption>Pneumatic system. The compressor supply is regulated to 0.05&nbsp;MPa by a proportional valve; four solenoid valves driven by an Arduino MEGA inflate the balloons according to the arm's quadrant, as commanded by Unity.</figcaption></figure>
+  </section>
+
+  <section class="sub" id="force">
+  <h3>Force validation</h3>
+  <div class="prose">
+    <p>The force at the centre of a balloon was measured on a test bed with a force gauge. At the operating pressure of 0.05&nbsp;MPa, a balloon exerts a maximum force of 13&nbsp;N, chosen to be clearly perceptible while remaining below the level at which participants reported any discomfort.</p>
+  </div>
+  <figure class="fig mid"><div class="ph auto"><img src="static/figures/balloon-testbed.jpg" alt="A handheld GOYOJO digital force gauge reading 13.0 N, its probe pressed against a clear balloon held in a black mount on aluminium rails" width="1325" height="834" loading="lazy" decoding="async"></div><figcaption>Balloon test bed used for force validation, consisting of a force gauge and a balloon locking mechanism that holds the balloon against the gauge while the input pressure is varied.</figcaption></figure>
+  </section>
+
+  <section class="sub feature" id="study">
+  <h3>Experimental design</h3>
+  <div class="prose">
+    <p>A 2&nbsp;×&nbsp;2 mixed design crossed <em>interface</em> (with MESSPa vs. keyboard control), varied between groups, with <em>attachment</em> (on-shoulder vs. detached), varied within participants. Each combination was performed under a single task and a dual task. In the MESSPa group, the order of the attachment conditions and of the single and dual tasks was counterbalanced; the keyboard group followed the procedure of our previous study.</p>
+    <p><strong>Participants.</strong> MESSPa group: 13 volunteers (12 male, 1 female; age 21–30 years, <i>M</i>&nbsp;=&nbsp;24.7, <i>SD</i>&nbsp;=&nbsp;2.59). Keyboard group: the 12 participants of our previous study (11 male, 1 female; age 21–30 years, <i>M</i>&nbsp;=&nbsp;24.3, <i>SD</i>&nbsp;=&nbsp;2.34).</p>
+  </div>
+  <figure class="fig" id="setup"><div class="ph auto"><img src="static/figures/setup.jpg" alt="(a) Two photos of a participant at a desk with the robot arm: mounted on a shoulder harness, labelled On Shoulder, and standing on the desk, labelled Detachment, with the task sheet and robot arm labelled. (b) The Unity task screen with nine red circles, one green main-task target and a blue sub-task circle" width="1703" height="439" loading="lazy" decoding="async"></div><figcaption>(a) Experimental setup, showing the on-shoulder (attached) and detached conditions without MESSPa. (b) The Unity task screen, with the timer, the main laser-pointing target (green circle), and the sub-task colour indicator.</figcaption></figure>
+
+  <h4 class="spaced">Tasks</h4>
+  <dl class="states">
+    <dt>Main task</dt><dd>Laser pointing. A green target appears on the screen and indicates which circle of the printed task sheet to aim at. The participant moves a laser pointer mounted on the arm onto the target and presses “Enter” on a small keypad. An external camera tracks the laser dot (OpenCV), and the cycle repeats for five minutes.</dd>
+    <dt>Sub-task</dt><dd>Colour calling (dual task only). A circle on the screen changes colour (red, blue or green) at random every 5–15&nbsp;s, and the participant says the current colour aloud while performing the main task.</dd>
+  </dl>
+
+  <h4 class="spaced">Procedure</h4>
+  <dl class="states">
+    <dt>Practice</dt><dd>At least three minutes each of the single and dual task, in the detached configuration, to learn the mapping.</dd>
+    <dt>Attached</dt><dd>Tasks with the arm on the shoulder, then the embodiment questionnaire.</dd>
+    <dt>Detached</dt><dd>The experimenter places the arm at a remote position, confirming the task area is still clearly visible; tasks and questionnaire are repeated.</dd>
+  </dl>
+  </section>
+
+  <section class="sub" id="measures">
+  <h3>Measures and analysis</h3>
+  <div class="prose">
+    <p>Performance was measured by <em>task completion time</em> (seconds per target) and <em>accuracy</em> (error distance in millimetres from the target centre). Embodiment was measured with the standardized embodiment questionnaire of Gonzalez-Franco and Peck, reworded for this task and restricted to agency and ownership. Scores are computed as SoA&nbsp;=&nbsp;A1&nbsp;+&nbsp;A2&nbsp;+&nbsp;A3&nbsp;−&nbsp;A4 and SoO&nbsp;=&nbsp;O1&nbsp;+&nbsp;O2.</p>
+  </div>
+  <section class="tablewrap" tabindex="0" aria-label="Questionnaire table">
+    <table>
+      <caption>Sense of Embodiment Questionnaire (adapted from Gonzalez-Franco and Peck).</caption>
+      <thead><tr><th scope="col">Item</th><th scope="col">Statement</th></tr></thead>
+      <tbody>
+        <tr><th scope="rowgroup" colspan="2">Sense of Agency (SoA)</th></tr>
+        <tr><td>A1</td><td>It felt like I could control the robot arm as if it were my own arm</td></tr>
+        <tr><td>A2</td><td>The movements of the robot arm were caused by my actions</td></tr>
+        <tr><td>A3</td><td>I felt as if the movements of the robot arm were influencing my own movements</td></tr>
+        <tr><td>A4</td><td>I felt as if the robot arm was moving by itself</td></tr>
+        <tr><th scope="rowgroup" colspan="2">Sense of Ownership (SoO)</th></tr>
+        <tr><td>O1</td><td>I felt as if the robot arm was a part of my body</td></tr>
+        <tr><td>O2</td><td>I felt as if the robot arm belonged to me</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="prose after">
+    <p>Normality was checked with the Shapiro–Wilk test. Three planned comparisons were tested: on-shoulder vs. detached within each group (paired tests) and detached with vs. without MESSPa between groups (unpaired tests). Single-task measures used paired <i>t</i>-tests and Welch's <i>t</i>-test; dual-task measures used Wilcoxon signed-rank and Mann–Whitney <i>U</i> tests. <i>p</i>-values are Bonferroni-adjusted (three comparisons) and evaluated against α&nbsp;=&nbsp;0.05. The detached-condition embodiment comparison used an independent-samples <i>t</i>-test. Analyses were performed in Python with SciPy&nbsp;1.18.</p>
+  </div>
+  </section>
+</div>
+</section>
+
+<section class="cite" id="citation" aria-labelledby="citation-h">
+<div class="wrap">
+  <h2 id="citation-h">Citation</h2>
+  <!-- TODO(bibtex): add pages and doi once the Humanoids 2026 proceedings are on IEEE Xplore -->
+  <div class="bib">
+    <button class="copy" type="button" id="copy" aria-live="polite">Copy</button>
+<pre id="bibtex-entry" tabindex="0" aria-label="BibTeX entry">@inproceedings{vimolmongkolporn2026messpa,
+  title         = {{MESSPa}: A Multi-modal Embodiment Stimulation Shoulder Pad for Preserving the Sense of Agency in a Detachable Robotic Arm},
+  author        = {Vimolmongkolporn, Vitvasin and Gourmelen, Guillaume and Iwasaki, Yukiko and Iwata, Hiroyasu},
+  booktitle     = {2026 IEEE-RAS International Conference on Humanoid Robots (Humanoids)},
+  year          = {2026},
+  eprint        = {2611.00509},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO}
+}</pre>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap"><a href="https://www.jubi-party.jp/">Iwata Laboratory</a>, Waseda University. This research was supported by Waseda University Global Robot Academia Institute and Waseda University Green Computing System Research Organization, Japan.</div>
+</footer>
+
+<script>
+document.getElementById('copy').addEventListener('click', function () {
+  var b = this, t = document.getElementById('bibtex-entry').innerText;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () {
+    b.textContent = 'Copied';
+  }, function () {
+    var r = document.createRange(); r.selectNodeContents(document.getElementById('bibtex-entry'));
+    var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected, press copy';
+  });
+  setTimeout(function () { b.textContent = 'Copy'; }, 2000);
+});
+// light/dark switch: follows the system until the visitor picks the other mode
+(function () {
+  var root = document.documentElement, btn = document.getElementById('theme'), lab = document.getElementById('theme-label');
+  var mq = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : { matches: false };
+  function sys() { return mq.matches ? 'dark' : 'light'; }
+  function cur() { return root.getAttribute('data-theme') || sys(); }
+  function render() {
+    var next = cur() === 'dark' ? 'light' : 'dark';
+    lab.textContent = next === 'dark' ? 'Dark' : 'Light';
+    btn.setAttribute('aria-label', 'Switch to ' + next + ' mode');
+  }
+  btn.addEventListener('click', function () {
+    var next = cur() === 'dark' ? 'light' : 'dark';
+    try {
+      if (next === sys()) { root.removeAttribute('data-theme'); localStorage.removeItem('theme'); }
+      else { root.setAttribute('data-theme', next); localStorage.setItem('theme', next); }
+    } catch (e) { root.setAttribute('data-theme', next); }
+    render();
+  });
+  if (mq.addEventListener) mq.addEventListener('change', render);
+  render();
+})();
+// highlight the current part in the sticky menu
+if ('IntersectionObserver' in window) {
+  var links = document.querySelectorAll('.toc a');
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('href') === '#' + e.target.id ? 'true' : 'false'); });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['interface', 'results', 'system', 'citation'].forEach(function (id) { io.observe(document.getElementById(id)); });
+}
+</script>
+</body>
+</html>
