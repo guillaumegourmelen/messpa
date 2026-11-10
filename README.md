@@ -1,6 +1,8 @@
 # MESSPa: A Multi-modal Embodiment Stimulation Shoulder Pad for Preserving the Sense of Agency in a Detachable Robotic Arm
 
-Project page for the paper by Vitvasin Vimolmongkolporn, Guillaume Gourmelen, Yukiko Iwasaki and Hiroyasu Iwata (Waseda University), *2026 IEEE-RAS International Conference on Humanoid Robots (Humanoids 2026)*.
+Project page: https://guillaumegourmelen.github.io/messpa/
+
+Paper by Vitvasin Vimolmongkolporn, Guillaume Gourmelen, Yukiko Iwasaki and Hiroyasu Iwata (Waseda University), *2026 IEEE-RAS International Conference on Humanoid Robots (Humanoids 2026)*.
 
 - arXiv: https://arxiv.org/abs/2611.00509
 - PDF: https://arxiv.org/pdf/2611.00509
