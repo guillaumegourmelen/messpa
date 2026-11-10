@@ -87,8 +87,16 @@ p{margin:0 0 1rem}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:1.25rem}
 figure.fig{margin:1.25rem 0 0}
 video{display:block;width:100%;height:auto;background:#000}
-.vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,340px));gap:1.5rem;margin-top:1.25rem}
-.vids figure.fig{margin:0}
+.side{display:grid;grid-template-columns:minmax(220px,340px) 1fr;gap:2rem;align-items:start;margin-top:1.25rem}
+.side figure.fig{margin:0}
+.side h4{margin-top:.25rem}
+.side .prose h4:not(:first-child){margin-top:1.25rem}
+@media (max-width:640px){.side{grid-template-columns:1fr}.side figure.fig{max-width:340px}}
+.strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.strip img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+.strip b{display:block;margin:.6rem 0 .15rem;font-weight:600}
+.strip span{display:block;color:var(--steel);font-size:.95rem;line-height:1.5}
+@media (max-width:600px){.strip{grid-template-columns:1fr;gap:1.5rem}.strip li{max-width:420px}}
 .tldr{font-size:1.15rem;max-width:62ch;margin:1.5rem 0 0}
 .limits{margin:0;padding-left:1.2rem}
 .limits li{margin-bottom:.5rem}
@@ -116,7 +124,7 @@ caption{caption-side:top;text-align:left;color:var(--steel);font-size:.92rem;pad
 pre{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.1rem;overflow-x:auto;font:.88rem/1.55 ui-monospace,Menlo,Consolas,monospace}
 .copy{position:absolute;top:.6rem;right:.6rem;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:.3rem .7rem;font:600 .85rem "Public Sans",sans-serif;cursor:pointer}
 footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--steel);font-size:.92rem}
-@media (max-width:480px){th,td{padding:.55rem .6rem}.toc a{padding:.85rem .5rem;font-size:.9rem}section.feature{padding:1.25rem}.toc a b{display:none}.vids{grid-template-columns:1fr}}
+@media (max-width:480px){th,td{padding:.55rem .6rem}.toc a{padding:.85rem .5rem;font-size:.9rem}section.feature{padding:1.25rem}.toc a b{display:none}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -181,17 +189,26 @@ footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--steel);f
 
   <section class="sub" id="video">
   <h3>Video</h3>
-  <!-- TODO(video-condition): confirm which interface this clip shows (MESSPa or keyboard) and adjust the caption if needed -->
-  <div class="vids">
+  <!-- TODO(video-condition): confirm which interface this clip shows (MESSPa or keyboard) and adjust the captions if needed -->
+  <div class="side">
     <figure class="fig">
       <div class="video"><video controls muted playsinline preload="none" poster="static/videos/detached-operation.jpg" width="720" height="1280" aria-label="Detached operation video"><source src="static/videos/detached-operation.mp4" type="video/mp4">Your browser cannot play this video. <a href="static/videos/detached-operation.mp4">Download it (MP4)</a>.</video></div>
       <figcaption>Detached operation: the arm stands on the table away from the participant, who aims its laser pointer at the circles on the task sheet (face blurred, no sound).</figcaption>
     </figure>
-    <figure class="fig">
-      <div class="video"><video controls muted playsinline preload="none" poster="static/videos/balloon-feedback.jpg" width="540" height="960" aria-label="Balloon haptic feedback video"><source src="static/videos/balloon-feedback.mp4" type="video/mp4">Your browser cannot play this video. <a href="static/videos/balloon-feedback.mp4">Download it (MP4)</a>.</video></div>
-      <figcaption>The four balloons laid out on the shoulder pad, inflating one at a time.</figcaption>
-    </figure>
+    <div class="prose">
+      <h4>What the video shows</h4>
+      <p>The robotic arm has been detached from the participant's shoulder harness and placed on the table. A laser pointer is mounted at the end of the arm, and a printed task sheet with nine circles lies in front of it.</p>
+      <p>On the task screen, a green circle tells the participant which printed circle to aim at. The participant steers the arm until the laser dot lands on that circle and presses “Enter” on a small keypad. The target then resets to the centre and the cycle repeats.</p>
+    </div>
   </div>
+  <figure class="fig">
+    <ol class="strip">
+      <li><img src="static/figures/task-1.jpg" alt="The detached arm above the task sheet, its red laser dot on the centre circle; the seated participant holds a small keypad" width="480" height="600" loading="lazy" decoding="async"><b>1. Start at the centre</b><span>Each cycle starts with the laser dot on the centre circle.</span></li>
+      <li><img src="static/figures/task-2.jpg" alt="The arm has turned and the laser dot is now on the left side of the task sheet, between circles" width="480" height="600" loading="lazy" decoding="async"><b>2. Move toward the target</b><span>The participant steers the arm, and the dot moves across the sheet.</span></li>
+      <li><img src="static/figures/task-3.jpg" alt="The laser dot sits on an outer circle at the upper left of the task sheet" width="480" height="600" loading="lazy" decoding="async"><b>3. Reach a circle</b><span>The dot reaches an outer circle. An external camera records where it lands.</span></li>
+    </ol>
+    <figcaption>Frames from the detached-operation video (cropped below the participant's face).</figcaption>
+  </figure>
   </section>
 
   <section class="sub" id="how">
@@ -207,6 +224,45 @@ footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--steel);f
     </div>
   </div>
   <figure class="fig mid"><div class="ph auto"><img src="static/figures/shoulder-pad.jpg" alt="The black neoprene shoulder pad on a mannequin, with a VIVE tracker boxed in red on top of the shoulder labelled motion transfer, and an inset of two clear square balloons 80 mm apart labelled haptic feedback" width="1600" height="1256" loading="lazy" decoding="async"></div><figcaption>The MESSPa shoulder pad. Motion transfer is provided by an HTC VIVE tracker; haptic feedback is provided by four balloons (25&nbsp;×&nbsp;25&nbsp;mm each) arranged on the shoulder with 80&nbsp;mm spacing, corresponding to the four quadrants of the arm's workspace (<a href="#haptics">Part&nbsp;3</a>).</figcaption></figure>
+
+  <h4 class="spaced">One arm, two places</h4>
+  <div class="prose"><p>The same modular arm can be worn on a shoulder harness or detached and left on a desk. MESSPa is meant to keep the feeling of control the same in both states.</p></div>
+  <figure class="fig">
+    <ol class="strip">
+      <li><img src="static/figures/arm-1.jpg" alt="Two hands fitting the white robot arm onto a mount on the shoulder of a person's harness" width="480" height="600" loading="lazy" decoding="async"><b>1. Mount on the shoulder</b><span>The arm is fitted onto the mount of the shoulder harness.</span></li>
+      <li><img src="static/figures/arm-2.jpg" alt="The robot arm standing on the shoulder mount, with a red laser at the end of the arm" width="480" height="600" loading="lazy" decoding="async"><b>2. Attached</b><span>Worn on the shoulder, the arm moves next to the operator's head.</span></li>
+      <li><img src="static/figures/arm-3.jpg" alt="The same robot arm standing on its own base on a desk, next to the printed task sheet" width="480" height="600" loading="lazy" decoding="async"><b>3. Detached</b><span>On its own base on the desk, the arm is operated at a distance.</span></li>
+    </ol>
+    <figcaption>Frames from two short clips of the modular arm, on the shoulder and on the desk.</figcaption>
+  </figure>
+  </section>
+
+  <section class="sub" id="balloons">
+  <h3>The balloons</h3>
+  <!-- TODO(balloon-fabrication): the paper does not say how the balloons were made. Add the film material, how the edges were sealed and how the air line connects, then extend the paragraph below. -->
+  <div class="side">
+    <figure class="fig">
+      <div class="video"><video controls muted playsinline preload="none" poster="static/videos/balloon-feedback.jpg" width="540" height="960" aria-label="Balloon haptic feedback video"><source src="static/videos/balloon-feedback.mp4" type="video/mp4">Your browser cannot play this video. <a href="static/videos/balloon-feedback.mp4">Download it (MP4)</a>.</video></div>
+      <figcaption>The four balloons on the inside of the shoulder pad, inflating one at a time.</figcaption>
+    </figure>
+    <div class="prose">
+      <h4>How they are built</h4>
+      <p>Each balloon is a flat pouch of clear, textured plastic film, sealed along all four edges, with a small square patch at its centre that has a hole in the middle. The four pouches sit on the inside of the neoprene shoulder pad, against the shoulder, and each has its own air line and solenoid valve.</p>
+      <h4>How they work</h4>
+      <p>A compressor supplies air, which a proportional valve regulates to 0.05&nbsp;MPa. When the arm's end-effector enters a quadrant of its workspace, Unity tells an Arduino MEGA to open that quadrant's valve, and the matching balloon inflates against the shoulder. At 0.05&nbsp;MPa a balloon pushes with up to 13&nbsp;N: clearly perceptible, but below the level at which participants reported any discomfort.</p>
+      <h4>Why balloons</h4>
+      <p>Vibration motors can become uncomfortable or fade after long use. An inflating balloon gives a softer pressure cue that lasts. The balloon centres are 80&nbsp;mm apart, well above the 31–44&nbsp;mm two-point discrimination threshold reported for the upper body, so each one is felt separately.</p>
+    </div>
+  </div>
+  <figure class="fig">
+    <ol class="strip">
+      <li><img src="static/figures/balloon-1.jpg" alt="Two flat, clear plastic pouches on black fabric, each with a small square patch and a hole at its centre" width="600" height="480" loading="lazy" decoding="async"><b>1. At rest</b><span>Both balloons are flat.</span></li>
+      <li><img src="static/figures/balloon-2.jpg" alt="The right pouch is puffed up with air, its edges pulled inward, while the left pouch stays flat" width="600" height="480" loading="lazy" decoding="async"><b>2. One balloon inflates</b><span>The right balloon fills with air and its edges pull inward.</span></li>
+      <li><img src="static/figures/balloon-3.jpg" alt="The left pouch is now inflated into a pinched star shape" width="600" height="480" loading="lazy" decoding="async"><b>3. The next balloon inflates</b><span>The left balloon fills next, as it would when the arm moves into another quadrant.</span></li>
+    </ol>
+    <figcaption>Frames from the balloon video, showing the two lower balloons.</figcaption>
+  </figure>
+  <figure class="fig mid"><div class="ph auto"><img src="static/figures/quadrants.jpg" alt="Left: a circular task workspace in front of the robot base, split into four quadrants numbered 1 to 4. Right: the inside of the shoulder pad with four clear balloons numbered 1 to 4, and the outside of the pad on a mannequin with the same numbers marking each balloon's position" width="1290" height="960" loading="lazy" decoding="async"></div><figcaption>Quadrants and balloons. The task workspace in front of the robot (ROB) is split into four quadrants. When the end-effector is in quadrant <i>k</i>, balloon <i>k</i> on the shoulder inflates. Right: the balloons seen from the inside of the pad, and their positions on the worn pad.</figcaption></figure>
   </section>
 
   <section class="sub" id="specs">
